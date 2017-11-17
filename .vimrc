@@ -171,6 +171,8 @@ set directory=~/.vim/vim_swap
 
 NeoBundle 'airblade/vim-gitgutter'
 
+set expandtab
+
 call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
