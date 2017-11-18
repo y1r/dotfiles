@@ -56,7 +56,7 @@ repo = 'zchee/deoplete-clang'
 depends = ['deoplete.nvim']
 hook_add = '''
     let s:llvm_dir = "/usr/local/Cellar/llvm"
-    let s:cmd = "ls " . s:llvm_dir " | tail -n 1"
+    let s:cmd = "ls " . s:llvm_dir . " | tail -n 1"
     let s:llvm_version = substitute( system(s:cmd), "\n", "", "g" )
     let s:llvm_dir_version = s:llvm_dir . "/" . s:llvm_version
     let g:deoplete#sources#clang#libclang_path = s:llvm_dir_version . "/lib/libclang.dylib"
@@ -77,6 +77,11 @@ hook_add = '''
     let g:deoplete#sources#jedi#show_docstring = 1
 '''
 on_ft = 'python'
+
+[[plugins]]
+repo = 'lambdalisue/vim-pyenv'
+on_ft = 'python'
+depends = ['zchee/deoplete-jedi']
 
 [[plugins]]
 repo = 'scrooloose/nerdtree'

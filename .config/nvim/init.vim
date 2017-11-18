@@ -7,6 +7,8 @@ augroup MyAutoCmd
   autocmd!
 augroup END
 
+let $PATH = "~/.pyenv/shims:".$PATH
+
 let g:python_host_prog = "/Users/y1r/.pyenv/versions/neovim2/bin/python"
 let g:python3_host_prog = "/Users/y1r/.pyenv/versions/neovim3/bin/python"
 
