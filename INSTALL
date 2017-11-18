@@ -11,7 +11,8 @@ done
 
 $ chsh -s /bin/zsh
 
-https://github.com/Shougo/neobundle.vim
-
-$ curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh > install.sh
-$ sh ./install.sh
+## neovim
+install python3
+pip install neovim
+ln -s dotfiles/.config ~
+setup python path

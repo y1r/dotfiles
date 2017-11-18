@@ -1,0 +1,92 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'Shougo/vimproc'
+build = 'make'
+
+# colorscheme, lightline
+[[plugins]]
+repo = 'w0ng/vim-hybrid'
+hook_add = '''
+    set background=dark
+    au MyAutoCmd VimEnter * nested colorscheme hybrid
+'''
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+
+[[plugins]]
+repo = 'cocopon/lightline-hybrid.vim'
+hook_add = '''
+    au MyAutoCmd VimEnter * nested let g:lightline = {}
+    au MyAutoCmd VimEnter * nested let g:lightline.colorscheme = 'hybrid'
+'''
+
+# development environments
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+hook_add = '''
+    " Use deoplete.
+    let g:deoplete#enable_at_startup = 1
+    " Use smartcase.
+    let g:deoplete#enable_smart_case = 1
+    " fast completion
+    let g:deoplete#auto_complete_delay = 0
+
+    inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ deoplete#manual_complete()
+
+    function! s:check_back_space() abort "{{{
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~ '\s'
+    endfunction
+
+    "<CR>: close popup
+    inoremap <silent><expr><CR>  pumvisible() ? deoplete#close_popup() : "<CR>"
+'''
+
+[[plugins]]
+repo = 'zchee/deoplete-clang'
+depends = ['deoplete.nvim']
+hook_add = '''
+    let s:llvm_dir = "/usr/local/Cellar/llvm"
+    let s:cmd = "ls " . s:llvm_dir " | tail -n 1"
+    let s:llvm_version = substitute( system(s:cmd), "\n", "", "g" )
+    let s:llvm_dir_version = s:llvm_dir . "/" . s:llvm_version
+    let g:deoplete#sources#clang#libclang_path = s:llvm_dir_version . "/lib/libclang.dylib"
+    let g:deoplete#sources#clang#clang_header = s:llvm_dir_version . "/lib/clang/"
+'''
+on_ft = ['c', 'cpp']
+
+[[plugins]]
+repo = 'Shougo/neoinclude.vim'
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+
+[[plugins]]
+repo = 'zchee/deoplete-jedi'
+hook_add = '''
+    let g:deoplete#sources#jedi#server_timeout = 60
+    let g:deoplete#sources#jedi#show_docstring = 1
+'''
+on_ft = 'python'
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+hook_add = '''
+    map <C-n> :NERDTreeToggle<CR>
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+    autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+'''
+
+[[plugins]]
+repo = 'Xuyuanp/nerdtree-git-plugin'
+depends = ['nerdtree']
