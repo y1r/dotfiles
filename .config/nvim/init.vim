@@ -73,6 +73,10 @@ imap <c-j> <DOWN>
 imap <c-k> <UP>
 imap <c-l> <Right>
 
+" ctag back-tag -> <c-[>
+" then, back: <c-[> front: <c-]>
+noremap <c-[> <c-t>
+
 "search
 set incsearch
 set ignorecase
