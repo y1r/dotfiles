@@ -117,11 +117,6 @@ repo = 'rhysd/vim-clang-format'
 hook_add = '''
 let g:clang_format#style_options = {
     \"BasedOnStyle": "Google",
-    \"AccessModifierOffset": -4,
-    \"ColumnLimit": 140,
-    \"IndentWidth": 4,
-    \"DerivePointerAlignment": "false",
-    \"PointerAlignment": "Left"
 \}
 autocmd FileType c,cpp ClangFormatAutoEnable
 '''

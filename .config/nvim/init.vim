@@ -72,6 +72,7 @@ imap <c-h> <LEFT>
 imap <c-j> <DOWN>
 imap <c-k> <UP>
 imap <c-l> <Right>
+set mouse=a
 
 " ctag back-tag -> <c-[>
 " then, back: <c-[> front: <c-]>
