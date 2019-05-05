@@ -1,3 +1,4 @@
+# package manager
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
@@ -23,110 +24,46 @@ hook_add = '''
     au MyAutoCmd VimEnter * nested let g:lightline.colorscheme = 'hybrid'
 '''
 
-# development environments
+# non-language dependent configuration
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 hook_add = '''
-    " Use deoplete.
-    let g:deoplete#enable_at_startup = 1
-    " Use smartcase.
-    let g:deoplete#enable_smart_case = 1
-    " fast completion
-    let g:deoplete#auto_complete_delay = 0
+" Use deoplete when InsertEnter.
+let g:deoplete#enable_at_startup = 0
+autocmd InsertEnter * call deoplete#enable()
 
-    inoremap <silent><expr> <TAB>
-        \ pumvisible() ? "\<C-n>" :
-        \ <SID>check_back_space() ? "\<TAB>" :
-        \ deoplete#manual_complete()
+" Use smartcase.
+let g:deoplete#enable_smart_case = 1
 
-    function! s:check_back_space() abort "{{{
-        let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~ '\s'
-    endfunction
+" fast completion
+let g:deoplete#auto_complete_delay = 0
 
-    "<CR>: close popup
-    inoremap <silent><expr><CR>  pumvisible() ? deoplete#close_popup() : "<CR>"
+inoremap <silent><expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ deoplete#manual_complete()
+
+function! s:check_back_space() abort "{{{
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+"<CR>: close popup
+inoremap <silent><expr><CR>  pumvisible() ? deoplete#close_popup() : "<CR>"
 '''
-
-[[plugins]]
-repo = 'zchee/deoplete-clang'
-depends = ['deoplete.nvim']
-hook_add = '''
-    let s:llvm_dir = "/usr/local/Cellar/llvm"
-    let s:cmd = "ls " . s:llvm_dir . " | tail -n 1"
-    let s:llvm_version = substitute( system(s:cmd), "\n", "", "g" )
-    let s:llvm_dir_version = s:llvm_dir . "/" . s:llvm_version
-    let g:deoplete#sources#clang#libclang_path = s:llvm_dir_version . "/lib/libclang.dylib"
-    let g:deoplete#sources#clang#clang_header = s:llvm_dir_version . "/lib/clang/"
-'''
-on_ft = ['c', 'cpp']
-
-[[plugins]]
-repo = 'Shougo/neoinclude.vim'
-
-[[plugins]]
-repo = 'cespare/vim-toml'
-
-[[plugins]]
-repo = 'zchee/deoplete-jedi'
-hook_add = '''
-    let g:deoplete#sources#jedi#server_timeout = 60
-    let g:deoplete#sources#jedi#show_docstring = 1
-'''
-on_ft = 'python'
-
-[[plugins]]
-repo = 'lambdalisue/vim-pyenv'
-on_ft = 'python'
-depends = ['zchee/deoplete-jedi']
 
 [[plugins]]
 repo = 'scrooloose/nerdtree'
 hook_add = '''
-    map <C-n> :NERDTreeToggle<CR>
-    autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-    autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+map <C-n> :NERDTreeToggle<CR>
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 '''
 
 [[plugins]]
 repo = 'Xuyuanp/nerdtree-git-plugin'
 depends = ['nerdtree']
-
-#[[plugins]]
-#repo = 'vim-syntastic/syntastic'
-#hook_add = '''
-#    set statusline+=%#warningmsg#
-#    set statusline+=%{SyntasticStatuslineFlag()}
-#    set statusline+=%*
-
-#    let g:syntastic_always_populate_loc_list = 1
-#    let g:syntastic_auto_loc_list = 1
-#"    let g:syntastic_check_on_open = 1
-#"    let g:syntastic_check_on_wq = 0
-
-#    let g:syntastic_cpp_compiler = 'g++'
-#    let g:syntastic_cpp_compiler_options = ' -Wall -std=c++14'
-#'''
-
-[[plugins]]
-repo = 'rhysd/vim-clang-format'
-hook_add = '''
-let g:clang_format#style_options = {
-    \"BasedOnStyle": "Google",
-\}
-autocmd FileType c,cpp ClangFormatAutoEnable
-'''
-
-[[plugins]]
-repo = 'rust-lang/rust.vim'
-
-[[plugins]]
-repo = 'racer-rust/vim-racer'
-hook_add = '''
-set hidden
-let g:racer_cmd = '$HOME/.cargo/bin/racer'
-'''

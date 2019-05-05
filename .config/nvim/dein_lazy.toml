@@ -1,0 +1,59 @@
+# C / C++ Language
+[[plugins]]
+repo = 'zchee/deoplete-clang'
+depends = ['deoplete.nvim']
+hook_add = '''
+let s:llvm_dir = "/usr/local/Cellar/llvm"
+let s:cmd = "ls " . s:llvm_dir . " | tail -n 1"
+let s:llvm_version = substitute( system(s:cmd), "\n", "", "g" )
+let s:llvm_dir_version = s:llvm_dir . "/" . s:llvm_version
+let g:deoplete#sources#clang#libclang_path = s:llvm_dir_version . "/lib/libclang.dylib"
+let g:deoplete#sources#clang#clang_header = s:llvm_dir_version . "/lib/clang/"
+'''
+on_ft = ['c', 'cpp']
+
+[[plugins]]
+repo = 'Shougo/neoinclude.vim'
+on_ft = ['c', 'cpp']
+
+[[plugins]]
+repo = 'rhysd/vim-clang-format'
+hook_add = '''
+let g:clang_format#style_options = {
+    \"BasedOnStyle": "Google",
+\}
+autocmd FileType c,cpp ClangFormatAutoEnable
+'''
+on_ft = ['c', 'cpp']
+
+# TOML
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = ['toml']
+
+# Python
+[[plugins]]
+repo = 'zchee/deoplete-jedi'
+hook_add = '''
+let g:deoplete#sources#jedi#server_timeout = 60
+let g:deoplete#sources#jedi#show_docstring = 1
+'''
+on_ft = ['python']
+
+[[plugins]]
+repo = 'lambdalisue/vim-pyenv'
+on_ft = ['python']
+depends = ['zchee/deoplete-jedi']
+
+# Rust
+[[plugins]]
+repo = 'rust-lang/rust.vim'
+on_ft = ['rust']
+
+[[plugins]]
+repo = 'racer-rust/vim-racer'
+hook_add = '''
+set hidden
+let g:racer_cmd = '$HOME/.cargo/bin/racer'
+'''
+on_ft = ['rust']
