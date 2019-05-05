@@ -57,3 +57,12 @@ set hidden
 let g:racer_cmd = '$HOME/.cargo/bin/racer'
 '''
 on_ft = ['rust']
+
+# Golang
+[[plugins]]
+repo = 'fatih/vim-go'
+on_ft = ['go']
+hook_add = '''
+call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+set noexpandtab
+'''
